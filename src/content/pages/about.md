@@ -1,37 +1,22 @@
 ---
-title: "About"
-description: "A bit about me and this blog."
+title: 关于我
+description: About Yunhao Wang
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+## Yunhao Wang / 王云豪
 
-![Astro Paper](@/assets/images/astropaper-og.jpg)
+AI 算法工程师,方向:**具身智能 / VLA(视觉-语言-动作)/ 多模态**。
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+- 奥克兰大学计算机科学硕士(2026 届)
+- 北京大学信息技术高等研究院 Robonix 项目组成员(基于 ROS2 的具身智能操作系统)
+- 关注:VLA 数据闭环、流匹配策略、真实机器人场景的多模态感知
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+## 开源项目
 
-## Features
+- [cat-tremor-analysis](https://github.com/cloud666666666/cat-tremor-analysis) — 猫头部震颤量化分析:CSRT 追踪 + 光流 + FFT,含鲁棒性/泛化性验证
+- 更多项目见 [GitHub](https://github.com/cloud666666666)
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+## 联系
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
-
-and so much more.
-
-## Show your support
-
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
-
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
-
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
-
-Kyay zuu! 🙏🏼
+- GitHub: [cloud666666666](https://github.com/cloud666666666)
+- Email: 2353493891@qq.com
