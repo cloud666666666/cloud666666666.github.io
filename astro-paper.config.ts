@@ -19,7 +19,7 @@ export default defineAstroPaperConfig({
   },
   features: {
     lightAndDarkMode: true,
-    dynamicOgImage: false,
+    dynamicOgImage: true,
     showArchives: true,
     showBackButton: true,
     editPost: {

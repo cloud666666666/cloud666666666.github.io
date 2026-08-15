@@ -60,11 +60,11 @@ export default defineConfig({
   },
   fonts: [
     {
-      name: "Google Sans Code",
-      cssVariable: "--font-google-sans-code",
+      name: "IBM Plex Mono",
+      cssVariable: "--font-blog-mono",
       provider: fontProviders.google(),
       fallbacks: ["monospace"],
-      weights: [300, 400, 500, 600, 700],
+      weights: [400, 700],
       styles: ["normal", "italic"],
       formats: ["woff", "ttf"],
     },

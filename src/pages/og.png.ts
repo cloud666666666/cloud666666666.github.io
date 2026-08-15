@@ -1,15 +1,14 @@
 import type { APIRoute } from "astro";
-import { getCollection } from "astro:content";
-import { fontData, experimental_getFontFileURL } from "astro:assets";
 import satori from "satori";
 import sharp from "sharp";
+import { fontData, experimental_getFontFileURL } from "astro:assets";
 import { getFontPathByWeight } from "@/utils/getFontPathByWeight";
-import { getPostSlug } from "@/utils/getPostPaths";
 import config from "@/config";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
-// Astro 7 构建期 fetch 字体文件会 502,绕过 HTTP 直接读缓存文件。
+// Astro 7 构建期 fetch 字体文件会 502(见 build 日志),绕过 HTTP 直接读缓存文件。
+// 字体缓存在 node_modules/.astro/fonts/<hash>.ttf
 async function readFontBuffer(url: string): Promise<Buffer> {
   const filename = new URL(url).pathname.split("/").pop()!;
   // 构建时 cwd 是项目根, 字体缓存在 node_modules/.astro/fonts/
@@ -17,26 +16,7 @@ async function readFontBuffer(url: string): Promise<Buffer> {
   return await readFile(cachePath);
 }
 
-export async function getStaticPaths() {
-  if (!config.features.dynamicOgImage) {
-    return [];
-  }
-
-  const posts = await getCollection("posts").then(p =>
-    p.filter(({ data }) => !data.draft && !data.ogImage)
-  );
-
-  return posts.map(post => ({
-    params: { slug: getPostSlug(post.id, post.filePath) },
-    props: post,
-  }));
-}
-
-export const GET: APIRoute = async ({ props, url }) => {
-  if (!config.features.dynamicOgImage) {
-    return new Response(null, { status: 404, statusText: "Not found" });
-  }
-
+export const GET: APIRoute = async context => {
   const fonts = fontData["--font-blog-mono"];
   const regularFontPath = getFontPathByWeight(fonts, 400);
   const boldFontPath = getFontPathByWeight(fonts, 700);
@@ -45,9 +25,12 @@ export const GET: APIRoute = async ({ props, url }) => {
     throw new Error("Cannot find the font path.");
   }
 
+  const regularURL = experimental_getFontFileURL(regularFontPath, context.url);
+  const boldURL = experimental_getFontFileURL(boldFontPath, context.url);
+
   const [regularData, boldData] = await Promise.all([
-    readFontBuffer(experimental_getFontFileURL(regularFontPath, url)),
-    readFontBuffer(experimental_getFontFileURL(boldFontPath, url)),
+    readFontBuffer(regularURL),
+    readFontBuffer(boldURL),
   ]);
 
   const svg = await satori(
@@ -61,6 +44,7 @@ export const GET: APIRoute = async ({ props, url }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          fontFamily: "IBM Plex Mono",
         },
         children: [
           {
@@ -108,15 +92,34 @@ export const GET: APIRoute = async ({ props, url }) => {
                   },
                   children: [
                     {
-                      type: "p",
+                      type: "div",
                       props: {
                         style: {
-                          fontSize: 72,
-                          fontWeight: "bold",
-                          maxHeight: "84%",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "90%",
+                          maxHeight: "90%",
                           overflow: "hidden",
+                          textAlign: "center",
                         },
-                        children: props.data.title,
+                        children: [
+                          {
+                            type: "p",
+                            props: {
+                              style: { fontSize: 72, fontWeight: "bold" },
+                              children: config.site.title,
+                            },
+                          },
+                          {
+                            type: "p",
+                            props: {
+                              style: { fontSize: 28 },
+                              children: config.site.description,
+                            },
+                          },
+                        ],
                       },
                     },
                     {
@@ -124,45 +127,18 @@ export const GET: APIRoute = async ({ props, url }) => {
                       props: {
                         style: {
                           display: "flex",
-                          justifyContent: "space-between",
+                          justifyContent: "flex-end",
                           width: "100%",
                           marginBottom: "8px",
                           fontSize: 28,
                         },
-                        children: [
-                          {
-                            type: "span",
-                            props: {
-                              children: [
-                                "by ",
-                                {
-                                  type: "span",
-                                  props: {
-                                    style: { color: "transparent" },
-                                    children: '"',
-                                  },
-                                },
-                                {
-                                  type: "span",
-                                  props: {
-                                    style: {
-                                      overflow: "hidden",
-                                      fontWeight: "bold",
-                                    },
-                                    children: props.data.author,
-                                  },
-                                },
-                              ],
-                            },
+                        children: {
+                          type: "span",
+                          props: {
+                            style: { overflow: "hidden", fontWeight: "bold" },
+                            children: new URL(config.site.url).hostname,
                           },
-                          {
-                            type: "span",
-                            props: {
-                              style: { overflow: "hidden", fontWeight: "bold" },
-                              children: config.site.title,
-                            },
-                          },
-                        ],
+                        },
                       },
                     },
                   ],
