@@ -37,3 +37,42 @@
 :target {
   scroll-margin-block: 1rem;
 }
+
+
+/* ===== Tech/neon additions ===== */
+[data-theme="dark"] ::selection {
+  background: rgba(0, 229, 255, 0.28);
+}
+
+/* Neon glow for card hover in dark mode */
+[data-theme="dark"] article:hover,
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.35), 0 0 24px -6px rgba(0, 229, 255, 0.25);
+  transition: box-shadow 0.25s ease;
+}
+
+/* Site title neon accent */
+[data-theme="dark"] .site-title,
+[data-theme="dark"] h1 a[href="/"],
+[data-theme="dark"] header .title {
+  text-shadow: 0 0 18px rgba(0, 229, 255, 0.45);
+}
+
+/* Terminal-style code blocks in dark mode */
+[data-theme="dark"] pre {
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  box-shadow: 0 0 30px -12px rgba(0, 229, 255, 0.2);
+}
+
+/* Scrollbar */
+[data-theme="dark"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #1e2c44;
+  border-radius: 4px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #00e5ff66;
+}
