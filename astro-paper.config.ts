@@ -3,9 +3,9 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: "https://cloud666666666.github.io/",
-    title: "Yunhao Wang",
-    description: "Yunhao Wang's tech blog: embodied AI, VLA, computer vision and hands-on engineering.",
-    author: "Yunhao Wang",
+    title: "Joker.Yun",
+    description: "Joker.Yun's tech blog: embodied AI, VLA, computer vision and hands-on engineering.",
+    author: "Joker.Yun",
     profile: "https://github.com/cloud666666666",
     ogImage: "default-og.jpg",
     lang: "zh-CN",

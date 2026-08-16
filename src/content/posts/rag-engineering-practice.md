@@ -1,5 +1,5 @@
 ---
-author: Yunhao Wang
+author: Joker.Yun
 pubDatetime: 2026-08-15T16:00:00.000Z
 modDatetime: 2026-08-15T16:00:00.000Z
 title: RAG 工程实践:双向量检索 + 重排 + RRF 融合

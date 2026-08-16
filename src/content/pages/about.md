@@ -1,9 +1,9 @@
 ---
 title: 关于我
-description: About Yunhao Wang
+description: About Joker.Yun
 ---
 
-## Yunhao Wang / 王云豪
+## Joker.Yun
 
 AI 算法工程师,方向:**具身智能 / VLA(视觉-语言-动作)/ 多模态**。
 

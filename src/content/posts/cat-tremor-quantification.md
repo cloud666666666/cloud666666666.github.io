@@ -1,5 +1,5 @@
 ---
-author: Yunhao Wang
+author: Joker.Yun
 pubDatetime: 2026-08-15T12:00:00.000Z
 modDatetime: 2026-08-15T12:00:00.000Z
 title: 猫头部震颤的量化分析:CSRT追踪 + 光流 + FFT 的工程实践

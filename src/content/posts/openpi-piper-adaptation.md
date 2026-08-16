@@ -1,5 +1,5 @@
 ---
-author: Yunhao Wang
+author: Joker.Yun
 pubDatetime: 2026-08-15T15:00:00.000Z
 modDatetime: 2026-08-15T15:00:00.000Z
 title: openpi 适配 Piper 机械臂:VLA 训练栈的实战改造
