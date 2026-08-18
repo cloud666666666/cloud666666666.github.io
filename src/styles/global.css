@@ -76,3 +76,11 @@
 [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   background: #00e5ff66;
 }
+
+/* ===== 整站背景(演唱会现场, 深色混合保证可读性) ===== */
+[data-theme="dark"] body {
+  background:
+    linear-gradient(rgba(10, 15, 26, 0.88), rgba(10, 15, 26, 0.92)),
+    url("/bg.jpg") fixed center / cover;
+  background-blend-mode: multiply;
+}
