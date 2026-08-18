@@ -47,10 +47,11 @@ const currentYear = new Date().getFullYear();
         const days = Math.floor(diff / 86400000);
         const hours = Math.floor((diff % 86400000) / 3600000);
         const mins = Math.floor((diff % 3600000) / 60000);
-        el.textContent = `${days} 天 ${hours} 时 ${mins} 分`;
+        const secs = Math.floor((diff % 60000) / 1000);
+        el.textContent = `${days} 天 ${hours} 时 ${mins} 分 ${secs} 秒`;
       };
       tick();
-      setInterval(tick, 60000);
+      setInterval(tick, 1000);
     })();
   </script>
 </footer>
