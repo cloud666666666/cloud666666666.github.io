@@ -95,6 +95,9 @@ if (!ogImageUrl && config.features.dynamicOgImage) {
 const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
+
+// 阅读时长(约 400 字/分钟, 中英混排取保守值)
+const readingMinutes = Math.max(1, Math.round((post.body?.length ?? 0) / 400));
 ---
 
 <PostLayout
@@ -123,6 +126,8 @@ const ogImage = ogImageUrl
 
     <div class="my-2 flex items-center gap-2">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+      <span class="text-muted-foreground" aria-hidden="true">|</span>
+      <span class="text-muted-foreground text-sm">约 {readingMinutes} 分钟读完</span>
       <span
         aria-hidden="true"
         class:list={[

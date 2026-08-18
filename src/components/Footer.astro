@@ -30,8 +30,27 @@ const currentYear = new Date().getFullYear();
         访问 <span id="busuanzi_value_site_pv" class="text-accent">-</span> 次 ·
         访客 <span id="busuanzi_value_site_uv" class="text-accent">-</span> 人
       </span>
+      <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
+      <span class="text-muted-foreground text-sm">
+        建站 <span id="site-runtime" class="text-accent">-</span>
+      </span>
     </div>
   </div>
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <script is:inline>
+    (function () {
+      const start = new Date("2026-08-15T12:00:00+08:00").getTime();
+      const el = document.getElementById("site-runtime");
+      const tick = () => {
+        const diff = Math.max(0, Date.now() - start);
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        el.textContent = `${days} 天 ${hours} 时 ${mins} 分`;
+      };
+      tick();
+      setInterval(tick, 60000);
+    })();
   </script>
 </footer>
