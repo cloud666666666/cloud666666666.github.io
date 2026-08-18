@@ -4,7 +4,7 @@ pubDatetime: 2026-08-18T09:30:00.000Z
 modDatetime: 2026-08-18T09:30:00.000Z
 title: ExcelMind 二次开发:把一个 LLM Excel 助手改造成 v2.1
 slug: excelmind-v2-development
-featured: false
+featured: true
 draft: false
 tags:
   - llm

@@ -4,7 +4,7 @@ pubDatetime: 2026-08-18T09:00:00.000Z
 modDatetime: 2026-08-18T09:00:00.000Z
 title: 16 星的抢票工具:写给谦友的 Selenium 自动化实战
 slug: damai-ticket-bot
-featured: false
+featured: true
 draft: false
 tags:
   - python

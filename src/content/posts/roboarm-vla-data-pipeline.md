@@ -4,7 +4,7 @@ pubDatetime: 2026-08-15T14:00:00.000Z
 modDatetime: 2026-08-15T14:00:00.000Z
 title: 从 0 到 1 搭建机械臂 VLA 数据采集系统
 slug: roboarm-vla-data-pipeline
-featured: true
+featured: false
 draft: false
 tags:
   - embodied-ai
