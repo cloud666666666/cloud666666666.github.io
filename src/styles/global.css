@@ -80,7 +80,7 @@
 /* ===== 整站背景(演唱会现场, 深色混合保证可读性) ===== */
 [data-theme="dark"] body {
   background:
-    linear-gradient(rgba(10, 15, 26, 0.82), rgba(10, 15, 26, 0.88)),
+    linear-gradient(rgba(10, 15, 26, 0.66), rgba(10, 15, 26, 0.72)),
     url("/bg.jpg") fixed center / cover;
   background-blend-mode: multiply;
 }
