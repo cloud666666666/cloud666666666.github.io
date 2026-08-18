@@ -36,13 +36,13 @@ const currentYear = new Date().getFullYear();
       </span>
     </div>
   </div>
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-  </script>
   <script is:inline>
     (function () {
+      // 建站时长: 每次动态查找元素(客户端路由重建 Footer 后依然有效)
       const start = new Date("2026-08-15T12:00:00+08:00").getTime();
-      const el = document.getElementById("site-runtime");
-      const tick = () => {
+      const tickRuntime = () => {
+        const el = document.getElementById("site-runtime");
+        if (!el) return;
         const diff = Math.max(0, Date.now() - start);
         const days = Math.floor(diff / 86400000);
         const hours = Math.floor((diff % 86400000) / 3600000);
@@ -50,8 +50,26 @@ const currentYear = new Date().getFullYear();
         const secs = Math.floor((diff % 60000) / 1000);
         el.textContent = `${days} 天 ${hours} 时 ${mins} 分 ${secs} 秒`;
       };
-      tick();
-      setInterval(tick, 1000);
+      setInterval(tickRuntime, 1000);
+      // 访问统计: 直接走 busuanzi JSONP API, 每次路由切换重新填充
+      const loadBusuanzi = () => {
+        const cb = "BusuanziCallback_" + Date.now();
+        window[cb] = data => {
+          const pv = document.getElementById("busuanzi_value_site_pv");
+          const uv = document.getElementById("busuanzi_value_site_uv");
+          if (pv) pv.textContent = data.site_pv;
+          if (uv) uv.textContent = data.site_uv;
+          delete window[cb];
+        };
+        const s = document.createElement("script");
+        s.src = "https://busuanzi.ibruce.info/busuanzi?jsonpCallback=" + cb;
+        s.async = true;
+        document.head.appendChild(s);
+      };
+      document.addEventListener("astro:page-load", loadBusuanzi);
+      document.addEventListener("astro:after-swap", tickRuntime);
+      loadBusuanzi();
+      tickRuntime();
     })();
   </script>
 </footer>
