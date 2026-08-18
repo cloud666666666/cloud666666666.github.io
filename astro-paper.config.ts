@@ -4,7 +4,7 @@ export default defineAstroPaperConfig({
   site: {
     url: "https://cloud666666666.github.io/",
     title: "Joker.Yun",
-    description: "Joker.Yun's tech blog: embodied AI, VLA, computer vision and hands-on engineering.",
+    description: "Joker.Yun's tech blog: LLM training, VLA, multimodal learning and hands-on engineering.",
     author: "Joker.Yun",
     profile: "https://github.com/cloud666666666",
     ogImage: "default-og.jpg",
