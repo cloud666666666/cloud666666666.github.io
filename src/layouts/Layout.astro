@@ -119,6 +119,37 @@ const rssHref = getRelativeLocaleUrl(
   <body
     class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"
   >
+    <!-- 顶部加载进度条(霓虹青, 参考 NProgress) -->
+    <div id="nav-progress" style="position:fixed;top:0;left:0;height:2.5px;width:0;background:linear-gradient(90deg,#00e5ff,#7c4dff);z-index:9999;transition:width .25s ease,opacity .3s ease;opacity:0;box-shadow:0 0 10px rgba(0,229,255,.7)"></div>
+    <script is:inline>
+      (function () {
+        const bar = document.getElementById("nav-progress");
+        let timer = null;
+        const start = () => {
+          bar.style.opacity = "1";
+          bar.style.width = "0";
+          let w = 0;
+          timer = setInterval(() => {
+            w += (92 - w) * 0.12;
+            bar.style.width = w + "%";
+          }, 120);
+        };
+        const done = () => {
+          clearInterval(timer);
+          bar.style.width = "100%";
+          setTimeout(() => { bar.style.opacity = "0"; }, 250);
+          setTimeout(() => { bar.style.width = "0"; }, 500);
+        };
+        document.addEventListener("astro:before-swap", start);
+        document.addEventListener("astro:after-swap", done);
+        document.addEventListener("astro:page-load", () => {
+          clearInterval(timer);
+          bar.style.width = "100%";
+          setTimeout(() => { bar.style.opacity = "0"; }, 200);
+          setTimeout(() => { bar.style.width = "0"; }, 450);
+        });
+      })();
+    </script>
     <slot />
     <script>
       import "@/scripts/theme";

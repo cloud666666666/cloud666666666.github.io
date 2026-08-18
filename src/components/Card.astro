@@ -3,6 +3,8 @@ import type { CollectionEntry } from "astro:content";
 import { getPostUrl } from "@/utils/getPostPaths";
 import { toTransitionName } from "@/utils/toTransitionName";
 import Datetime from "./Datetime.astro";
+import Tag from "./Tag.astro";
+import { slugifyStr } from "@/utils/slugify";
 
 type Props = {
   variant?: "h2" | "h3";
@@ -27,5 +29,14 @@ const { title, description, ...props } = data;
     </Heading>
   </a>
   <Datetime {...props} />
+  {
+    data.tags && data.tags.length > 0 && (
+      <ul class="my-1 flex flex-wrap gap-1.5">
+        {data.tags.map(tag => (
+          <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
+        ))}
+      </ul>
+    )
+  }
   <p>{description}</p>
 </li>
