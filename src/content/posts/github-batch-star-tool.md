@@ -49,7 +49,9 @@ Token 权限要求:
 
 完整代码在仓库里:
 
-- GitHub:[github-tools](https://github.com/cloud666666666/github-tools)
+- GitHub:[star-assistant](https://github.com/cloud666666666/star-assistant)(fork 自 [nbsheep](https://github.com/nbsheep/star-assistant),Windows 桌面版)
+
+> 文末彩蛋:写完命令行版后,社区朋友 [nbsheep](https://github.com/nbsheep) 把它做成了 Windows 桌面小工具(GUI + 设备配对登录 + 凭据加密 + 代理回退),体验完胜命令行。他是我在 Robonix 社区认识的朋友,这个仓库就是我们的"同题共创"。
 
 ## 注意事项
 
