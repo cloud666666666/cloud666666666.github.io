@@ -31,19 +31,7 @@ Claude Code 是 Anthropic 官方的终端 AI 编程代理。国内部署要过�
 
 ### 1.1 WSL / Linux:走 gh-proxy 的 nvm
 
-#### 第 0 步:理解为什么"一行命令"装不上
-
-网上流行的命令是:
-
-```bash
-curl -o- https://v4.gh-proxy.org/https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
-```
-
-实测拆解:这条命令**只把安装脚本本身走了 gh-proxy**,但脚本后续默认执行
-`git clone https://github.com/nvm-sh/nvm.git`——这一步在国内大概率卡死。
-
-好消息是 install.sh 支持 `NVM_SOURCE` 环境变量覆盖仓库地址(源码里优先级最高),
-而 gh-proxy 也能代理 git clone(实测 `git ls-remote` 通过)。所以全程版是:
+#### 第 1 步:直接执行(全程镜像,可直接粘贴)
 
 ```bash
 # 1. 下载安装脚本(经 gh-proxy)
@@ -64,7 +52,7 @@ source ~/.bashrc
   版本号就是脚本自身的版本,放心用
 - 脚本会检查必须用 `bash` 执行,zsh 直接管道会报错退出
 
-#### 第 1 步:让 Node 本体也走国内镜像
+#### 第 2 步:让 Node 本体也走国内镜像
 
 `nvm install` 默认从 `nodejs.org/dist` 下载,国内极慢。设置 Node 镜像:
 
@@ -79,11 +67,26 @@ nvm alias default 'lts/*'
 node -v    # 实测应为 v22+(Claude Code 的 engines 要求)
 ```
 
-#### 第 2 步:npm 换国内源
+#### 第 3 步:npm 换国内源
 
 ```bash
 npm config set registry https://registry.npmmirror.com
 ```
+
+#### 踩坑记录:为什么网上流行的"一行命令"装不上
+
+网上流行的命令是:
+
+```bash
+curl -o- https://v4.gh-proxy.org/https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+```
+
+实测拆解:这条命令**只把安装脚本本身走了 gh-proxy**,但脚本后续默认执行
+`git clone https://github.com/nvm-sh/nvm.git`——这一步在国内大概率卡死。
+
+所以上面第 1 步的正确姿势是:`install.sh` 支持 `NVM_SOURCE` 环境变量覆盖
+仓库地址(源码里优先级最高),而 gh-proxy 也能代理 git clone(实测
+`git ls-remote` 通过)。
 
 ### 1.2 Windows:nvm-windows(管理员 + 双镜像)
 
