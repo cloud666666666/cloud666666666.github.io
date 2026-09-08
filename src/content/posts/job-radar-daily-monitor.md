@@ -31,9 +31,13 @@ featured: false
 
 **龙哥表(腾讯文档 smartsheet)**:一个每日更新的 27 届秋招汇总表,272 家公司,含内推码、截止时间。有意思的是它前端是 canvas 渲染、DOM 里抓不到数据——最后从它的网络请求里挖到了公开 JSON 接口(`/dop-api/get/sheet`),数据是 base64 + zlib 压缩的,解开就是完整表格。
 
+## 开源与可复现
+
+工具本身**零依赖、独立开源**,不依赖任何私有 agent 环境:纯 Python 标准库,clone 即可跑,牛客源用自己的 Cookie(环境变量传入,文档里写了获取步骤),龙哥表源无需任何凭据。
+
 ## 自动化细节
 
-- 全部跑在 [Hermes](https://hermes-agent.nousresearch.com) 的 cron 上,`no_agent` 脚本模式——不经过 LLM,零漂移、零幻觉
+- 我自己的每日推送跑在 [Hermes](https://hermes-agent.nousresearch.com) cron 上,`no_agent` 脚本模式——不经过 LLM,零漂移、零幻觉;但任何人用 crontab 跑 `python3 run.py --push` 效果一样
 - 无新增时发"心跳"消息,证明监控还活着(曾因静默被误判为挂了)
 - 每天 9:45 汇总两个源,写入 `data/{date}.json`,git push 到仓库
 - 一个踩过的坑:Hermes 新版本的 cron 子进程保护用了 systemd 的 `OOMPolicy=kill` 参数,而 WSL 的 systemd 249 不支持,导致定时任务全挂——删掉该参数后恢复
