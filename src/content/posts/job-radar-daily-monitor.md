@@ -1,7 +1,7 @@
 ---
 title: 我的秋招 AI 岗位每日雷达:牛客+龙哥表双源监控
 description: 用 Hermes cron 每天抓取牛客校招日历和龙哥27届秋招汇总表,筛选 AI/算法岗增量推送飞书,并自动归档到 GitHub 仓库。附数据流架构和仓库链接。
-pubDatetime: 2026-09-08T02:00:00
+pubDatetime: 2026-09-08T01:00:00
 tags: [jobs, hermes, automation, cron, career]
 featured: false
 ---
