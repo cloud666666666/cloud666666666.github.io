@@ -18,6 +18,10 @@ description: 从 IK 奇异位形失明、手眼标定的假拟合,到灵巧手 C
 
 把 Piper 机械臂的末端从两指夹爪换成 LinkerHand O6 灵巧手,再做平掌包络抓取——听起来是把两个 URDF 拼起来的事,实际做下来踩了 21 个坑。每个坑都按 **现象 → 根因 → 修法** 记录,项目已开源:[piper-with-linkerhand](https://github.com/cloud666666666/piper-with-linkerhand)。
 
+[![Piper + LinkerHand O6 整机(点击进入在线 3D 查看器)](https://cloud666666666.github.io/piper-with-linkerhand/media/sim_iso.png)](https://cloud666666666.github.io/piper-with-linkerhand/viewer/index.html)
+
+> 🔗 [在线 3D 查看器 —— 点这里直接在浏览器里转模型](https://cloud666666666.github.io/piper-with-linkerhand/viewer/index.html)(three.js + URDF,纯静态)
+
 ## 一、机械臂姿态与 IK
 
 ### 1. 手拖可达 ≠ 命令可达
@@ -108,6 +112,8 @@ description: 从 IK 奇异位形失明、手眼标定的假拟合,到灵巧手 C
 
 ## 四、灵巧手通信与手势
 
+![LinkerHand O6 张开 → 握拳动画](https://cloud666666666.github.io/piper-with-linkerhand/media/hand_open_fist.gif)
+
 ### 11. CAN / Modbus 走错链路
 
 **现象**:手一直没反应。
@@ -135,6 +141,8 @@ description: 从 IK 奇异位形失明、手眼标定的假拟合,到灵巧手 C
 **修法**:区分"原地钉手腕(joint 空间)"和"带位姿移动中翻腕(IK 插值)",启动用前者。
 
 ## 五、抓取动作
+
+![平掌包络抓取完整序列](https://cloud666666666.github.io/piper-with-linkerhand/media/grasp_sequence.gif)
 
 ### 15. 侧向滑入会把物体推走
 
@@ -185,6 +193,10 @@ git -C <submodule> branch -r --contains <sha>
 **根因**:查看器用的是官方 piper URDF,而仿真用的是另一套模型——不仅 link6 网格自带夹爪、缺连接件,连 link3~link6 的世界位置都差最多 **11.2mm**(关节原点定义不同),关节限位也有 8 处不一致。
 
 **修法**:别手工对齐——写脚本从 MJCF 生成查看器 URDF(`sync_viewer_urdf.py`),内置 FK 比对(修完偏差 1.1e-6 m),仿真一改重跑脚本即可。
+
+![MuJoCo 仿真中的平抓姿态](https://cloud666666666.github.io/piper-with-linkerhand/media/sim_flat_grasp.png)
+
+在线核对入口(免安装):[3D 查看器](https://cloud666666666.github.io/piper-with-linkerhand/viewer/index.html) / [仓库主页](https://cloud666666666.github.io/piper-with-linkerhand/)。
 
 **一个相关教训**:给仿真换末端时,一定要把**整个夹爪关节链**从臂末端彻底分离,再挂新手;只把最后一段的网格换成手、没有清理对应的关节/连杆层级,会留下"残骸"(网格自带夹爪、缺连接件),后面查起来非常费劲。分离要彻底,挂接要干净。
 
