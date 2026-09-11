@@ -32,5 +32,160 @@ const { Content } = await render(about);
     <Content />
   </Main>
 
+  {/* 🃏 页面最底部的彩蛋:用力下拉(滚轮/触摸继续拖)才会出现 */}
+  <div id="joker-pull" aria-hidden="true"></div>
+  <div id="joker-egg" aria-hidden="true">
+    <div class="joker-egg-inner">
+      <div class="joker-egg-mark">🃏</div>
+      <p class="joker-egg-line">
+        Joker 取两层意思:<strong>小丑</strong>,和<strong>底牌</strong>——
+      </p>
+      <p class="joker-egg-line">在成为底牌的路上,先当个小丑也无妨。</p>
+    </div>
+  </div>
+
   <Footer />
 </Layout>
+
+<style>
+  #joker-pull {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+    z-index: 50;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--color-accent, #8b5cf6));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #joker-egg {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #joker-egg .joker-egg-inner {
+    text-align: center;
+    padding: 3rem 1rem 2.5rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 1s ease 0.35s,
+      transform 1s ease 0.35s;
+  }
+
+  #joker-egg.open .joker-egg-inner {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #joker-egg .joker-egg-mark {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+    filter: grayscale(0.2);
+  }
+
+  #joker-egg .joker-egg-line {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--color-muted-foreground, #9ca3af);
+  }
+
+  #joker-egg .joker-egg-line strong {
+    color: var(--color-accent, #8b5cf6);
+    font-weight: 600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #joker-egg,
+    #joker-egg .joker-egg-inner {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const egg = document.getElementById("joker-egg");
+  const inner = egg?.querySelector(".joker-egg-inner");
+  const bar = document.getElementById("joker-pull");
+  if (egg && inner && bar) {
+    const THRESHOLD = 1200; // 需累计的"额外拖动量"(桌面≈12格滚轮, 手机≈1200px)
+    let pull = 0;
+    let opened = false;
+    let touchY = 0;
+
+    const atBottom = () =>
+      window.innerHeight + Math.ceil(window.scrollY) >=
+      document.documentElement.scrollHeight - 4;
+
+    const render = () => {
+      if (opened) return;
+      const r = Math.min(pull / THRESHOLD, 1);
+      bar.style.width = r * 100 + "%";
+      bar.style.opacity = pull > 60 ? "1" : "0";
+    };
+
+    const open = () => {
+      opened = true;
+      bar.style.opacity = "0";
+      egg.style.height = inner.scrollHeight + "px";
+      egg.classList.add("open");
+      window.setTimeout(() => {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: "smooth",
+        });
+      }, 80);
+    };
+
+    const add = (d) => {
+      if (opened) return;
+      if (!atBottom()) {
+        pull = Math.max(0, pull - 240);
+        render();
+        return;
+      }
+      pull += d;
+      if (pull >= THRESHOLD) open();
+      else render();
+    };
+
+    window.addEventListener(
+      "wheel",
+      (e) => {
+        if (e.deltaY > 0) add(e.deltaY);
+        else {
+          pull = Math.max(0, pull - Math.abs(e.deltaY) * 2);
+          render();
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchstart",
+      (e) => {
+        touchY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        const y = e.touches[0].clientY;
+        const dy = touchY - y;
+        touchY = y;
+        if (dy > 0) add(dy * 1.5);
+        else {
+          pull = Math.max(0, pull - Math.abs(dy) * 3);
+          render();
+        }
+      },
+      { passive: true }
+    );
+  }
+</script>
