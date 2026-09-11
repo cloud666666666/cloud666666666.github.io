@@ -142,7 +142,7 @@ const { Content } = await render(about);
       }, 80);
     };
 
-    const add = (d) => {
+    const add = (d: number) => {
       if (opened) return;
       if (!atBottom()) {
         pull = Math.max(0, pull - 240);
