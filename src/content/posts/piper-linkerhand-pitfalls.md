@@ -142,7 +142,14 @@ description: 从 IK 奇异位形失明、手眼标定的假拟合,到灵巧手 C
 
 ## 五、抓取动作
 
+上方 GIF 为**仿真**中的抓取序列;下方视频为**真机实拍**完整流程(约 29 秒):
+
 ![平掌包络抓取完整序列](https://cloud666666666.github.io/piper-with-linkerhand/media/grasp_sequence.gif)
+
+<video controls preload="metadata" playsinline style="max-width:420px;width:100%;border-radius:10px;margin:10px auto;display:block">
+  <source src="https://cloud666666666.github.io/piper-with-linkerhand/media/real_grasp_demo.mp4" type="video/mp4">
+  您的浏览器不支持视频播放,<a href="https://cloud666666666.github.io/piper-with-linkerhand/media/real_grasp_demo.mp4">点此下载观看</a>。
+</video>
 
 ### 15. 侧向滑入会把物体推走
 
