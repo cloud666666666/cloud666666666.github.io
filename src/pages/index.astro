@@ -33,86 +33,196 @@ const homePath = getRelativeLocaleUrl(locale, "");
     data-home-path={homePath}
     class="app-layout my-1"
   >
-    <section id="hero" class="border-border border-b pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Hi, I'm Joker.Yun.
-      </h1>
-      <a
-        target="_blank"
-        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
-        class="inline-block"
-        aria-label="RSS Feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
-
-      <p>
-        LLM engineer working on SFT, VLA and multimodal learning — with
-        hands-on robotics data pipelines and computer vision engineering.
-      </p>
-      {
-        socials.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">
-              {t.home.socialLinks}:
-            </div>
-            <Socials />
-          </div>
-        )
-      }
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">
+          Hi, I'm <span class="hero-name">Joker.Yun</span>.
+        </h1>
+        <p class="hero-desc">
+          LLM engineer working on SFT, VLA and multimodal learning — with
+          hands-on robotics data pipelines and computer vision engineering.
+        </p>
+        <div class="hero-socials">
+          <Socials />
+          <a
+            target="_blank"
+            href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
+            class="hero-rss"
+            aria-label="RSS Feed"
+            title="RSS Feed"
+          >
+            <IconRss width={20} height={20} class="stroke-accent stroke-3" />
+            <span class="sr-only">RSS Feed</span>
+          </a>
+        </div>
+      </div>
     </section>
 
-    {
-      featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class:list={[
-            "pt-12 pb-6",
-            { "border-border border-b": recentPosts.length > 0 },
-          ]}
-        >
-          <h2 class="text-2xl font-semibold tracking-wide">
-            {t.home.featured}
-          </h2>
-          <ul>
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+    <div class="home-panel">
+      {
+        featuredPosts.length > 0 && (
+          <section
+            id="featured"
+            class:list={[
+              "home-section pt-8",
+              { "border-border border-b pb-4": recentPosts.length > 0, "pb-2": recentPosts.length === 0 },
+            ]}
+          >
+            <h2 class="text-2xl font-semibold tracking-wide">
+              {t.home.featured}
+            </h2>
+            <ul>
+              {featuredPosts.map(data => (
+                <Card variant="h3" {...data} />
+              ))}
+            </ul>
+          </section>
+        )
+      }
 
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">
-            {t.home.recentPosts}
-          </h2>
-          <ul>
-            {recentPosts.slice(0, postsConfig.perIndex).map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+      {
+        recentPosts.length > 0 && (
+          <section id="recent-posts" class="home-section pt-8 pb-2">
+            <h2 class="text-2xl font-semibold tracking-wide">
+              {t.home.recentPosts}
+            </h2>
+            <ul>
+              {recentPosts.slice(0, postsConfig.perIndex).map(data => (
+                <Card variant="h3" {...data} />
+              ))}
+            </ul>
+          </section>
+        )
+      }
 
-    <div class="my-8 text-center">
-      <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
-        {t.home.allPosts}
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
+      <div class="mt-6 mb-8 text-center">
+        <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
+          {t.home.allPosts}
+          <IconArrowRight class="inline-block rtl:-rotate-180" />
+        </LinkButton>
+      </div>
     </div>
   </main>
   <Footer />
 </Layout>
+
+<style>
+  /* 防止全出血 Hero 造成横向滚动 */
+  :global(body) {
+    overflow-x: clip;
+  }
+
+  /* ===== Full-bleed hero ===== */
+  #hero.hero {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    position: relative;
+    overflow: hidden;
+    padding: clamp(3.5rem, 9vh, 5.5rem) 1.25rem clamp(4.75rem, 10vh, 6.5rem);
+    text-align: center;
+    border-bottom: none;
+    /* 只叠加氛围光斑+网格, 不加暗色罩层 —— 与整站演唱会背景无缝融合 */
+    background:
+      radial-gradient(56rem 22rem at 16% -14%, rgba(0, 229, 255, 0.18), transparent 60%),
+      radial-gradient(48rem 20rem at 90% -4%, rgba(112, 120, 255, 0.15), transparent 62%),
+      radial-gradient(44rem 20rem at 50% 44%, rgba(10, 15, 26, 0.42), transparent 72%);
+  }
+
+  /* 网格纹理(顶部浓、向下淡出) */
+  #hero.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 42px 42px;
+    -webkit-mask-image: radial-gradient(ellipse 110% 90% at 50% 0%, #000 22%, transparent 76%);
+    mask-image: radial-gradient(ellipse 110% 90% at 50% 0%, #000 22%, transparent 76%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    margin: 0;
+    font-size: clamp(1.9rem, 5.2vw, 3.1rem);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-name {
+    color: var(--accent);
+    text-shadow: 0 0 18px rgba(0, 229, 255, 0.35);
+  }
+
+  .hero-desc {
+    margin: 1.1rem auto 0;
+    max-width: 40rem;
+    color: color-mix(in srgb, var(--foreground) 82%, transparent);
+    font-size: 1.02rem;
+    line-height: 1.85;
+  }
+
+  .hero-socials {
+    margin-top: 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-rss {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem;
+    transition: transform 0.2s ease;
+  }
+  .hero-rss:hover {
+    transform: rotate(6deg);
+  }
+
+  /* ===== Overlap panel (叠层卡片) ===== */
+  .home-panel {
+    position: relative;
+    z-index: 2;
+    margin-top: -4rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #0d1626;
+    box-shadow:
+      0 28px 80px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(0, 229, 255, 0.05),
+      0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    padding: 0 1.75rem 0.5rem;
+  }
+
+  .home-panel .home-section {
+    border-bottom-color: var(--border);
+  }
+
+  @media (max-width: 640px) {
+    #hero.hero {
+      padding-top: 3rem;
+      padding-bottom: 4.5rem;
+    }
+    .home-panel {
+      margin-top: -2.5rem;
+      padding: 0 1rem 0.25rem;
+      border-radius: 14px;
+    }
+    .home-panel .home-section {
+      padding-top: 1.5rem;
+    }
+  }
+</style>
 
 <script>
   document.addEventListener("astro:page-load", () => {
