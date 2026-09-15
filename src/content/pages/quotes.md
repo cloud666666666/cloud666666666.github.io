@@ -1,5 +1,5 @@
 ---
-title: 摘录
+title: 诗与歌
 description: 收藏的歌与诗,每一条都注明出处
 ---
 

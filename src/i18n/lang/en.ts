@@ -3,12 +3,15 @@ import type { UIStrings } from "../types";
 export default {
   nav: {
     home: "Home",
-    posts: "Posts",
-    tags: "Tags",
-    about: "About",
-    quotes: "Quotes",
-    archives: "Archives",
-    search: "Search",
+    posts: "文章",
+    tags: "标签",
+    about: "关于",
+    quotes: "诗与歌",
+    projects: "项目",
+    games: "游戏",
+    links: "友链",
+    archives: "归档",
+    search: "搜索",
   },
   post: {
     publishedAt: "Published at",
