@@ -7,4 +7,6 @@ description: 交换友链
 
 ## 友链
 
-*第一批席位虚位以待…*
+- [nbsheep (shameless)](https://github.com/nbsheep)
+- [Ciliphen (Felix)](https://github.com/Ciliphen)
+- [TaraTang2003 (Xiao)](https://github.com/TaraTang2003)
