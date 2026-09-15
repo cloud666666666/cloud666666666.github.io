@@ -7,10 +7,10 @@ import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
 
-const page = await getEntry("pages", "music");
+const page = await getEntry("pages", "quotes");
 
 if (!page) {
-  throw new Error("Missing content entry: `music.md` in `src/content/pages/`");
+  throw new Error("Missing content entry: `quotes.md` in `src/content/pages/`");
 }
 
 const { Content } = await render(page);
