@@ -27,4 +27,5 @@ description: Joker.Yun 的开源项目
 
 ## 🐱 趣味 / 其他
 
+- **[dsh-pet-ccswitch](https://github.com/cloud666666666/dsh-pet-ccswitch)** — 桌宠搬家:把 DeepSeek Harness 的 dsh-pet 独立出来接到 CC Switch 上,气泡显示今日 token 与余额(配套[文章](/posts/dsh-pet-ccswitch))
 - **[cat-tremor-analysis](https://github.com/cloud666666666/cat-tremor-analysis)** — 猫头部震颤量化分析:CSRT 追踪 + 光流 + FFT
