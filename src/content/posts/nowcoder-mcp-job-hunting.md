@@ -129,3 +129,7 @@ Registration failed: 400 {"error":"invalid_redirect_uri",
 如果你也在秋招, 找个支持 MCP 的客户端接上试试。踩到 OAuth 的坑别死磕, 翻回上面那份 Token 配置照抄就行。
 
 祝各位都能上岸。
+
+---
+
+**参考来源**:[牛客 Skills - ZIP 技能包与 MCP 求职能力](https://www.nowcoder.com/my/resume-plugin-intro?tab=skills)
